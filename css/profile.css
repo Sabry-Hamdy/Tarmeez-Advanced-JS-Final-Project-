@@ -1,0 +1,19 @@
+@media(max-width: 767px) {
+  .profile {
+    /* flex-direction: column !important; */
+    flex-wrap: wrap;
+    justify-content: space-around !important;
+  }
+
+  .profile .image {
+    flex-basis: 100% !important;
+  }
+
+  .profile .profile-user-info {
+    flex: 0 !important;
+  }
+
+  .profile .profile-user-stats {
+    flex: 0 !important;
+  }
+}

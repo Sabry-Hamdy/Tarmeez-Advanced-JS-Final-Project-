@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Post Details</title>
+    <!-- Bootstap Library -->
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/postStyle.css" />
+    <!-- AXIOS Library -->
+    <script src="./node_modules/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+        <!-- ======MODALS====== -->
+    <!-- LOGIN MODAL -->
+    <div class="modal fade" id="login-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Login</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Username</label>
+                <input type="text" class="form-control" id="username-input" />
+              </div>
+              <div class="mb-3">
+                <label for="message-text" class="col-form-label">Password</label>
+                <input type="password" class="form-control" id="password-input"></input>
+                <div id="validationServer04Feedback" class="error-div invalid-feedback"></div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="liveAlertBtn" onclick="loginBtnClicked()">login</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--// LOGIN MODAL //-->
+
+    <!-- REGISTER MODAL -->
+    <div class="modal fade" id="register-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Register</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="nickname-input" class="col-form-label" >Nickname</label>
+                <input type="text" class="form-control" id="nickname-input"value=""></input>
+                <div id="validationServer04Feedback" class="invalid-feedback"></div>
+              </div>
+              <div class="mb-3">
+                <label for="username-register-input" class="col-form-label" >Username</label>
+                <input type="text" class="form-control" id="username-register-input"value="" />
+                <div id="validationServer04Feedback" class="invalid-feedback"></div>
+              </div>
+              <div class="mb-3">
+                <label for="email-input" class="col-form-label" >Email</label>
+                <input type="email" class="form-control" id="email-input"value=""></input>
+                <div id="validationServer04Feedback" class="invalid-feedback"></div>
+              </div>
+            </form>
+              <div class="mb-3">
+                <label for="password-register-input" class="col-form-label" >Password</label>
+                <input type="password" class="form-control" id="password-register-input"value="123456"></input>
+                <div id="validationServer04Feedback" class="invalid-feedback"></div>
+              </div>
+              <div class="mb-3">
+                <label for="confirm-password-input" class="col-form-label" >Confirm password</label>
+                <input type="password" class="form-control" id="confirm-password-input"value="123456" onblur="confirmPassword()"></input>
+                <div id="validationServer04Feedback" class="invalid-feedback">
+                  Paswords does not match
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="" class="col-form-label">Profile Image</label>
+                <input type="file" class="form-control rounded w-100" name="profile-image" id="profile-image"></input>
+                <div id="validationServer04Feedback" class="invalid-feedback">
+                  Image is required
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="liveAlertBtn" onclick="registerBtnClicked()">Rigester</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--// REGISTER MODAL //-->
+    
+    <!-- NEW POST MODAL -->
+    <div class="modal fade" id="new-post-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="post-header-modal">Create New Post</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="" class="col-form-label" id="post-modal-title">Title</label>
+                <input type="text" class="form-control" id="post-title" />
+              </div>
+              <div class="mb-3">
+                <label for="" class="col-form-label" id="post-modal-body">Body</label>
+                <textarea rows="6" class="form-control rounded w-100" name="post-body" id="post-body"></textarea>
+                <div id="validationServer04Feedback" class="invalid-feedback"></div>
+              </div>
+              <div class="mb-3">
+                <label for="" class="col-form-label" id="post-modal-image">Image</label>
+                <input type="file" class="form-control rounded w-100" name="post-image" id="post-image"></input>
+                <div id="validationServer04Feedback" class="invalid-feedback"></div>
+              </div>
+              <input type="text" style="display: none" id="edit-post-id" value="">
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" id="post-modal-submit-btn" class="btn btn-primary" onclick="createNewPostClicked()">Post</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--// NEW POST MODAL //-->
+
+    <!-- DELETE POST MODAL -->
+    <div class="modal fade" id="confirm-post-delete-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="post-header-modal">Delete This Post?</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+          <input type="hidden" name="" id="delete-post-id-modal">
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" id="post-modal-submit-btn" class="btn btn-danger" onclick="confirmPostDelete()">Yes, Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--// DELETE POST MODAL //-->
+    <!--// ======MODALS====== //-->
+
+    <!-- ======ALERTS====== -->
+    <div id="status-alert" class="status-alert"></div>
+    <!--// ======ALERTS====== //-->
+
+    <!-- ======LOADER====== -->
+    <div class="lds-ellipsis" id="loader"><div></div><div></div><div></div><div></div></div>
+    <!--// ======LOADER====== //-->
+
+    <!-- NAVBAR -->
+    <div class="container">
+      <div class="mx-auto mb-5">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary shadow rounded pt-4">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">Tarmeez</a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="./home.html">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link nav-profile-tap" onclick="profileClicked()">Profile</a>
+                </li>
+              </ul>
+              <!-- FOR NON-LOGGED USERS -->
+              <div class="d-flex justify-content-end w-100">
+                <button id="login-btn" class="btn btn-outline-success me-2" data-bs-toggle="modal" data-bs-target="#login-modal" href="#">Login</button>
+                <button id="register-btn" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#register-modal" href="#">Register</button>
+              </div>
+              <!--// FOR NON-LOGGED USERS //-->
+
+              <!-- FOR LOGGED IN USERS -->
+              <div class="logged-user d-flex justify-content-end"></div>
+              <!--// FOR LOGGED IN USERS //-->
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <!--// NAVBAR //-->
+
+    <!-- POST DETAILS -->
+    <div class="container" id="post-container">
+      <h1 class="mx-auto mb-5">Sabry's Post</h1>
+      <div class="mx-auto card shadow-sm mb-3" style="position: relative">
+        <div class="card-header">
+          <img src="${profilePic}" alt="" class="rounded-circle me-2 border border-3" />
+          <span>sabry's Post</span>
+        </div>
+        <div class="card-body" id="post-body">
+          <img class="w-100" src="${imageUrl}" alt="" />
+          <span class="d-block post-time fw-medium">${createdAt}</span>
+          <h5 class="card-title mt-3">${title}</h5>
+          <p>${body}</p>
+          <hr />
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+            <path
+              d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"
+            />
+          </svg>
+          <span>${commentsCount}</span>
+          <span id="tags-${id}"> </span>
+        </div>
+        <ul class="list-group comments-section">
+          <li class="list-group-item d-flex justify-content-between align-items-start py-3 comment">
+            <img class="prof-pic" src="./images/profile-pictures/Basic_UI_Icon_Pack_-_Glyph_user-512.webp" alt="" />
+            <div class="ms-2 me-auto">
+              <div class="fw-bold">Subheading</div>
+              Content for list item
+            </div>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-start py-3 comment">
+            <img class="prof-pic" src="./images/profile-pictures/Basic_UI_Icon_Pack_-_Glyph_user-512.webp" alt="" />
+            <div class="ms-2 me-auto">
+              <div class="fw-bold">Subheading</div>
+              Content for list item
+            </div>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-start py-3 comment">
+            <img class="prof-pic" src="./images/profile-pictures/Basic_UI_Icon_Pack_-_Glyph_user-512.webp" alt="" />
+            <div class="ms-2 me-auto">
+              <div class="fw-bold">Subheading</div>
+              Content for list item
+            </div>
+          </li>
+        </ul>
+        <div class="input-group">
+          <input type="text" class="form-control comment-field" id="comment-input" placeholder="Comment on this post" aria-label="Text input with segmented dropdown button" />
+          <button type="button" class="btn btn-primary submit-comment py-3" onclick="commentBtnClicked()">Comment</button>
+        </div>
+      </div>
+    </div>
+    <!--// POST DETAILS //-->
+  </body>
+  <script src="./js/mainLogic.js"></script>
+  <script src="./js/postDetails.js"></script>
+</html>

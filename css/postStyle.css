@@ -1,0 +1,26 @@
+.prof-pic {
+  height: 40px;
+  width: 40px;
+}
+
+.list-group {
+  border: none !important;
+  border-top: 1px solid var(--bs-border-color) !important;
+}
+
+.comments-section .comment {
+  border: none !important;
+}
+
+.input-group {
+  /* border: none !important; */
+  border-top: 1px solid var(--bs-border-color);
+}
+
+.input-group .comment-field {
+  border: none !important;
+}
+
+.input-group .submit-comment {
+  border-top-right-radius: 0;
+}
