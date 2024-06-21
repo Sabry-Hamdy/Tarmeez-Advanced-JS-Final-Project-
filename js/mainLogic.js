@@ -398,20 +398,12 @@ function setupUI() {
     if (newPostBtn !== null) {
       newPostBtn.style.display = "block";
     }
-
-    if (window.location.pathname === "/postDetails.html") {
-      document.getElementById("add-comment-div").style.display = "flex";
-    }
   } else {
     loginBtn.style.display = "block";
     registerBtn.style.display = "block";
     loggedUser.style.setProperty("display", "none", "important");
     if (newPostBtn !== null) {
       newPostBtn.style.display = "none";
-    }
-
-    if (window.location.pathname === "/postDetails.html") {
-      document.getElementById("add-comment-div").style.display = "none";
     }
   }
 }

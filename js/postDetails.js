@@ -113,8 +113,13 @@ function commentBtnClicked() {
     },
   };
 
-  axios.post(url, bodyParams, config).then((response) => {
-    showExactPost();
-    body.value = "";
-  });
+  axios
+    .post(url, bodyParams, config)
+    .then((response) => {
+      showExactPost();
+      body.value = "";
+    })
+    .catch((error) => {
+      showStatusAlert(error.response.data.message, "danger");
+    });
 }
