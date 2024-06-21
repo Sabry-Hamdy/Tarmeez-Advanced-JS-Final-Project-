@@ -33,8 +33,8 @@ function showExactPost() {
       }
 
       let content = `
-  <h1 class="mx-auto mb-5">${username}'s Post</h1>
-      <div class="mx-auto card shadow-sm mb-3" style="position: relative">
+      <h1 class="col-lg-9 mx-auto mb-5">${username}'s Post</h1>
+      <div class="col-lg-9 mx-auto card shadow-sm mb-3" style="position: relative">
         <div class="card-header">
 
           <div onclick="userClicked(${response.author.id})" style="cursor: pointer; display: inline-block">
