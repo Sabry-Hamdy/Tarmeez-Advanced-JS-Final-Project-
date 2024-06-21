@@ -340,7 +340,7 @@ function showStatusAlert(alertMessage, alertType) {
   alertElement.className = `alert alert-${alertType} alert-dismissible movable-alert`;
   alertElement.id = `movable-alert-${alertId}`;
   alertElement.role = "alert";
-  alertElement.style.right = "-300%";
+  alertElement.style.right = "-600%";
   alertElement.innerHTML = [`<div>${alertMessage}</div>`, '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>'].join("");
 
   wrapper.appendChild(alertElement);
@@ -352,7 +352,7 @@ function showStatusAlert(alertMessage, alertType) {
     setTimeout(() => {
       alert.style.right = "10px";
       setTimeout(() => {
-        alert.style.right = "300%";
+        alert.style.right = "600%";
         setTimeout(() => {
           alert.remove();
         }, 500); // increased delay to match transition duration
@@ -367,7 +367,7 @@ function moveAlert(alertId) {
   setTimeout(() => {
     alert.style.right = "10px";
     setTimeout(() => {
-      alert.style.right = "300%";
+      alert.style.right = "600%";
       setTimeout(() => {
         alert.remove();
       }, 1);
@@ -517,8 +517,11 @@ function userClicked(userId) {
 
 function profileClicked() {
   let user = getCurrentUser();
-
-  window.location = `/profile.html?userId=${user.id}`;
+  if (user !== null) {
+    window.location = `/profile.html?userId=${user.id}`;
+  } else {
+    showStatusAlert("You need to login first", "danger");
+  }
 }
 
 function showLoader(show) {
